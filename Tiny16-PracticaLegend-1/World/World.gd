@@ -2,6 +2,7 @@ extends Node2D
 
 onready var tree_scene:= load('res://World/Tree.tscn')
 onready var food_scene:= load('res://World/Food.tscn')
+onready var herv_scene:= load('res://NPC/Hervivoro.tscn')
 
 onready var line2d: Line2D = $Line2D
 onready var tree_spawner:= $TreeSpawner
@@ -9,32 +10,26 @@ onready var tilemap: TileMap = $TileMap
 onready var pathfind: Pathfind = $Pathfind
 onready var player:= $Player
 
-onready var map_size = OS.window_size/tilemap.cell_size *12
+onready var map_size = OS.window_size/tilemap.cell_size
 onready var half_cell_size  = tilemap.cell_size/tilemap.cell_size * 2
 
 var rng:= RandomNumberGenerator.new()
 
-var tree_number = 400
-var food_number = 400
+var herv_number = 40
+var tree_number = 40
+var food_number = 40
 var obstacles_positions: PoolVector2Array
 
 
 func _ready():
+	print(map_size)
 	rng.randomize()
 	generate_border()
 	generate_inner()
 	spawn_trees()
 	spawn_food()
+	spawn_herv()
 	pathfind.generate_navigation(tilemap, obstacles_positions)
-
-
-
-func _input(event):
-	if event is InputEventMouseButton:
-		var path = pathfind.get_new_path(player.position, get_global_mouse_position(), tilemap)
-		if path == null:
-			return
-		line2d.points = path
 
 
 func generate_border():
@@ -74,6 +69,16 @@ func spawn_food():
 		food.position = tilemap.map_to_world(rand_pos)
 		tree_spawner.add_child(food)
 
+
+func spawn_herv():
+	for i in herv_number:
+		var herv = herv_scene.instance()
+		var rand_pos  = Vector2(rng.randi_range(1,map_size.x-1), rng.randi_range(1,map_size.y-1))
+		if rand_pos in obstacles_positions:
+			continue
+		obstacles_positions.append(rand_pos)
+		herv.position = tilemap.map_to_world(rand_pos)
+		tree_spawner.add_child(herv)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

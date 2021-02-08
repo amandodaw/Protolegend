@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://NPC/Hervivoro.gd" type="Script" id=1]
 [ext_resource path="res://Tiny16x/characters.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=1]
 resource_name = "IdleDown"
 length = 0.1
 tracks/0/type = "value"
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "values": [ 48 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=2]
 resource_name = "IdleLeft"
 length = 0.1
 tracks/0/type = "value"
@@ -35,7 +35,7 @@ tracks/0/keys = {
 "values": [ 60 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=3]
 resource_name = "IdleRight"
 length = 0.1
 tracks/0/type = "value"
@@ -51,7 +51,7 @@ tracks/0/keys = {
 "values": [ 72 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=4]
 resource_name = "IdleUp"
 length = 0.1
 tracks/0/type = "value"
@@ -67,7 +67,7 @@ tracks/0/keys = {
 "values": [ 84 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=5]
 resource_name = "WalkingDown"
 length = 0.3
 tracks/0/type = "value"
@@ -83,7 +83,7 @@ tracks/0/keys = {
 "values": [ 48, 49, 50 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=6]
 resource_name = "WalkingLeft"
 length = 0.3
 tracks/0/type = "value"
@@ -99,7 +99,7 @@ tracks/0/keys = {
 "values": [ 60, 61, 62 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=7]
 resource_name = "WalkingRight"
 length = 0.3
 tracks/0/type = "value"
@@ -115,7 +115,7 @@ tracks/0/keys = {
 "values": [ 72, 73, 74 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=8]
 resource_name = "WalkingUp"
 length = 0.3
 tracks/0/type = "value"
@@ -132,8 +132,11 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CapsuleShape2D" id=9]
-radius = 4.34389
-height = 7.03442
+radius = 5.97112
+height = 0.0
+
+[sub_resource type="CircleShape2D" id=10]
+radius = 128.0
 
 [node name="Hervivoro" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -145,18 +148,29 @@ hframes = 12
 frame = 62
 
 [node name="anim" type="AnimationPlayer" parent="."]
-anims/IdleDown = SubResource( 10 )
-anims/IdleLeft = SubResource( 11 )
-anims/IdleRight = SubResource( 12 )
-anims/IdleUp = SubResource( 13 )
-anims/WalkingDown = SubResource( 15 )
-anims/WalkingLeft = SubResource( 14 )
-anims/WalkingRight = SubResource( 16 )
-anims/WalkingUp = SubResource( 17 )
+anims/IdleDown = SubResource( 1 )
+anims/IdleLeft = SubResource( 2 )
+anims/IdleRight = SubResource( 3 )
+anims/IdleUp = SubResource( 4 )
+anims/WalkingDown = SubResource( 5 )
+anims/WalkingLeft = SubResource( 6 )
+anims/WalkingRight = SubResource( 7 )
+anims/WalkingUp = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.187294, 2.62203 )
 shape = SubResource( 9 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 0 )
+
+[node name="wanderTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vision"]
+shape = SubResource( 10 )
+[connection signal="timeout" from="wanderTimer" to="." method="_on_wanderTimer_timeout"]
