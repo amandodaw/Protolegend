@@ -32,6 +32,6 @@ func _ready():
 #	pass
 
 
-func _on_anim_animation_finished(anim_name):
+func _on_anim_animation_finished(_wtf):
 	emit_signal("finished", player.state_enum.Idle)
 	queue_free()

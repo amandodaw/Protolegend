@@ -9,7 +9,7 @@ enum state_enum{Idle, Walking, Chopping}
 
 var state = state_enum.Idle
 var speed = 100
-var spritedir: String
+var spritedir: String = "Down"
 var direction: Vector2
 
 var chop_damage = 100
@@ -17,6 +17,7 @@ var chop_damage = 100
 
 func _input(event):
 	if event.is_action_pressed("accion"):
+		print(position, get_node('../TileMap').world_to_map(position))
 		if state == state_enum.Chopping:
 			return
 		if raycast.is_colliding():
@@ -26,7 +27,7 @@ func _input(event):
 
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	match state:
 		state_enum.Idle, state_enum.Walking:
 			control()
@@ -44,7 +45,7 @@ func control():
 		state = state_enum.Idle
 		return
 	
-	raycast.cast_to = direction*8
+	raycast.cast_to = direction*12
 	state = state_enum.Walking
 	move_and_slide(direction.normalized()*speed)
 

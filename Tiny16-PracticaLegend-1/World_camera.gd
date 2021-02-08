@@ -6,7 +6,7 @@ onready var player: KinematicBody2D = get_node('../Player')
 # var b = "text"
 var speed = 400
 
-func _process(delta):
+func _process(_delta):
 	follow_player()
 	#control(delta)
 
