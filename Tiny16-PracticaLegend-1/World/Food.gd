@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 
-var hp = 400 setget attacked
+var hp = 100 setget attacked
 const TYPE: String = "FOOD"
 
 # Called when the node enters the scene tree for the first time.

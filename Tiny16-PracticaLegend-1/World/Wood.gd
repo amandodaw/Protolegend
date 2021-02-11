@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 
-const TYPE = "WOOD"
+const TYPE = "ITEM"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

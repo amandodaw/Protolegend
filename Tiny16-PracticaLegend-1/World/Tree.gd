@@ -4,7 +4,6 @@ onready var wood_scene:= load('res://World/Wood.tscn')
 
 var hp = 400 setget attacked
 const TYPE: String = "TREE"
-signal map_changed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

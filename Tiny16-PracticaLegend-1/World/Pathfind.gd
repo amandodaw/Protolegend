@@ -44,27 +44,39 @@ func connect_points():
 					continue
 				astar.connect_points(id, target_id)
 
-func get_new_path(start, end, tilemap: TileMap):
+func get_new_path(start, end, tilemap: TileMap, new_obstacle: Vector2):
+	#Check if there is an obstacle
+
+		
 	# Convert positions to cell coordinates
 	var start_tile = tilemap.world_to_map(start)
 	var end_tile = tilemap.world_to_map(end)
-
+	var new_obstacle_tile: Vector2 
+	if new_obstacle != Vector2.ZERO:	
+		new_obstacle_tile = tilemap.world_to_map(new_obstacle)
 	# Determines IDs
 	var start_id = get_id_for_point(start_tile)
 	var end_id = get_id_for_point(end_tile)
+	astar.set_point_disabled(start_id, false)
+	var obstacle_id = get_id_for_point(new_obstacle_tile)
+	if new_obstacle_tile != Vector2.ZERO:
+		obstacle_id = get_id_for_point(new_obstacle_tile)
+		astar.set_point_disabled(obstacle_id)
+	
 
 	# Return null if navigation is impossible
 	if not astar.has_point(start_id) or not astar.has_point(end_id):
 		return null
 	# Otherwise, find the map
 	var path_map = astar.get_point_path(start_id, end_id)
-
+	astar.set_point_disabled(end_id)
 	# Convert Vector3 array (remember, AStar is 3D) to real world points
 	var path_world = []
 	for point in path_map:
 		var point_world = tilemap.map_to_world(Vector2(point.x, point.y)) + Vector2(8,8)
 		path_world.append(point_world)
 	return path_world
+
 
 func get_id_for_point(point: Vector2):
 	var x = point.x - used_rect.position.x

@@ -20,3 +20,9 @@ frame = 20
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 7.81273, 7.25084 )
 shape = SubResource( 1 )
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2( 7.81273, 7.25084 )
+shape = SubResource( 1 )

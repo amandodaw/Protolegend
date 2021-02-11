@@ -10,14 +10,14 @@ onready var tilemap: TileMap = $TileMap
 onready var pathfind: Pathfind = $Pathfind
 onready var player:= $Player
 
-onready var map_size = OS.window_size/tilemap.cell_size
+onready var map_size = OS.window_size/tilemap.cell_size/4
 onready var half_cell_size  = tilemap.cell_size/tilemap.cell_size * 2
 
 var rng:= RandomNumberGenerator.new()
 
-var herv_number = 40
-var tree_number = 40
-var food_number = 40
+var herv_number = 10
+var tree_number = 10
+var food_number = 10
 var obstacles_positions: PoolVector2Array
 
 
@@ -28,8 +28,6 @@ func _ready():
 	generate_inner()
 	spawn_trees()
 	spawn_food()
-	spawn_herv()
-	pathfind.generate_navigation(tilemap, obstacles_positions)
 
 
 func generate_border():
