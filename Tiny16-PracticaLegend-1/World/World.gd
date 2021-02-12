@@ -7,18 +7,24 @@ onready var herv_scene:= load('res://NPC/Hervivoro.tscn')
 onready var line2d: Line2D = $Line2D
 onready var tree_spawner:= $TreeSpawner
 onready var tilemap: TileMap = $TileMap
-onready var pathfind: Pathfind = $Pathfind
+onready var pathfinder: Pathfinder = $Pathfinder
 onready var player:= $Player
 
-onready var map_size = OS.window_size/tilemap.cell_size/4
+onready var map_size = OS.window_size/tilemap.cell_size/2
 onready var half_cell_size  = tilemap.cell_size/tilemap.cell_size * 2
 
 var rng:= RandomNumberGenerator.new()
 
 var herv_number = 10
-var tree_number = 10
-var food_number = 10
+var tree_number = 20
+var food_number = 20
 var obstacles_positions: PoolVector2Array
+
+
+func _input(event):
+	if event is InputEventMouseButton:
+		var path = pathfinder.get_new_path(player.position, get_global_mouse_position())
+		line2d.points = path
 
 
 func _ready():
@@ -28,7 +34,7 @@ func _ready():
 	generate_inner()
 	spawn_trees()
 	spawn_food()
-
+	pathfinder.generate_navigation(tilemap, obstacles_positions)
 
 func generate_border():
 	for x in [0, map_size.x]:

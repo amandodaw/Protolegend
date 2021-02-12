@@ -1,7 +1,10 @@
-extends 'res://World/object.gd'
+extends Label
 
+var se
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
 
-const TYPE = "ITEM"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -159,4 +159,19 @@ shape = SubResource( 9 )
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 0 )
+collision_mask = 3
+
+[node name="hungerTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = -26.5949
+margin_top = -25.0966
+margin_right = 27.4051
+margin_bottom = -11.0966
+text = "Hunger: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+[connection signal="timeout" from="hungerTimer" to="." method="_on_hungerTimer_timeout"]
