@@ -105,12 +105,12 @@ func update_navigation(point, new: bool):
 	
 	if new:
 		astar.set_point_disabled(point_id, true)
-		obstacles.append(point)
+		obstacles.append(point_tile)
 		disable_obstacles()
 	else:
 		astar.set_point_disabled(point_id, false)
-		obstacles.erase(point)
-		connect_point(point)
+		obstacles.erase(point_tile)
+		connect_point(point_tile)
 
 
 func calculate_point_index(point):

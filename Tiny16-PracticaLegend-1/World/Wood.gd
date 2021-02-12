@@ -2,6 +2,7 @@ extends 'res://World/object.gd'
 
 
 const TYPE = "ITEM"
+const SUBTYPE = "WOOD"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

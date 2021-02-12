@@ -18,7 +18,7 @@ var rng:= RandomNumberGenerator.new()
 var herv_number = 10
 var tree_number = 20
 var food_number = 20
-var obstacles_positions: PoolVector2Array
+var obstacles_positions: Array
 
 
 func _input(event):

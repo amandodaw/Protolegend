@@ -109,13 +109,13 @@ func drop_item():
 			new_pos += Vector2.UP
 		"Down":
 			new_pos += Vector2.DOWN
-	if new_pos in get_parent().obstacles_positions:
+	if new_pos in pathfinder.obstacles:
 		print("NO SE PUEDE DEJAR AHI")
 		return
 	remove_child(holding_sprite)
 	new_item.global_position = tilemap.map_to_world(new_pos)
 	get_parent().get_node("TreeSpawner").add_child(new_item)
-	emit_signal("update_navigation", new_pos, true)
+	emit_signal("update_navigation", new_item.global_position, true)
 	set_is_grabbing(false)
 
 
